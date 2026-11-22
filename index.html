@@ -544,7 +544,7 @@ function touchEventState(ev,target){
  if(triggeredTouchEvents.has(ev.id))return triggeredTouchEvents.get(ev.id);
  const source=objects.find(o=>o.id===ev.sourceId);if(!source){triggeredTouchEvents.set(ev.id,null);return null}
  let found=null;
- for(let t=0;t<=4.0001;t+=.02){
+ for(let t=Math.max(0,Math.min(4,ev.t||0));t<=4.0001;t+=.02){
   const a=interpolateObject(source,t)||source,b=interpolateObject(target,t)||target;
   const overlap=a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
   const ax=a.x+a.w/2,ay=a.y+a.h/2,bx=b.x+b.w/2,by=b.y+b.h/2;
