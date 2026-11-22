@@ -20,6 +20,14 @@ ANIMEXA is a browser-based Arabic-first vector and motion editor.
 - Animated SVG export uses SVG `<animateMotion>` for motion paths and `<animateTransform>` for keyframes.
 - Local project saving and PWA offline cache after the first successful online load.
 
+## Science learning space
+
+- Seven concise science chapters with 14 lessons, including short explanations, key takeaways, classroom activities and quick checks.
+- Lesson progress is saved locally in the browser.
+- 100 ready-made science project templates connected to the lessons.
+- Templates open as separate editable vector layers in the main ANIMEXA editor.
+- The learning materials and templates are bundled with the site and cached by the service worker for offline use after the first successful load.
+
 ## Usage
 
 Open the published GitHub Pages site once online. Select Elements to build the scene, or Animations to set the playhead, move an object and add keyframes. Shift-click multiple objects before using Group +, Ungroup, Align or Distribute. Select an object with a motion path to move its blue waypoint nodes.
