@@ -500,7 +500,7 @@ $('brushOpacity').oninput=e=>setBrushOpacity(+e.target.value);$('topBrushOpacity
 $('brushSmooth').oninput=e=>{brushSmooth=+e.target.value;$('smoothValue').textContent=e.target.value+'%'};
 $('drawColor').onchange=e=>brushColor=e.target.value;
 renderColorPalette();setBrushSize(10);setBrushOpacity(100);
-renderCategories();renderLibrary();loadState();
+renderCategories();renderLibrary();loadState();startPathAnimation();
 if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
