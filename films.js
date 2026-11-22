@@ -223,7 +223,9 @@ function filter(){const q=$('filmSearch').value.toLocaleLowerCase().trim(),area=
 bind();$('filmSearch').oninput=filter;$('filmTopic').onchange=filter;
 }
 function watch(p){stop();elapsed=0;const caps=scenes(p);main.innerHTML='<div class="animexa-player-head"><button class="academy-back" id="filmsBack">← كل القصص</button><div><b>'+esc(p.title)+'</b><small>'+esc(p.area)+' · '+esc(p.story)+'</small></div><button class="academy-project-link" id="filmToEditor">افتح المشهد في المحرر</button></div><div class="animexa-stage-wrap"><div class="animexa-stage" id="filmStage">'+frame(p,0)+'</div></div><div class="animexa-scene-info"><b id="filmTitle">'+caps[0][0]+'</b><p id="filmCaption">'+caps[0][1]+'</p></div><div class="animexa-controls"><button id="filmPlay" class="is-primary">▶ تشغيل القصة</button><button id="filmRestart">↺ من البداية</button><div class="animexa-time"><span id="filmTime">00:00</span><input id="filmSeek" type="range" min="0" max="40" step=".1" value="0"><span>00:40</span></div></div><div class="animexa-scene-dots">'+caps.map((s,i)=>'<button data-scene="'+i+'">'+(i+1)+' · '+s[0]+'</button>').join('')+'</div><p class="animexa-note">'+(p.id==='water_clean'?'تنبيه علمي: الترشيح يحجز العوالق، لكنه لا يزيل بالضرورة الأملاح الذائبة أو الجراثيم. لا تشرب ماء التجارب.':p.id==='circuit'||p.id==='intensity'?'تنبيه سلامة: الرسوم للتعلم فقط. لا تجرّب كهرباء المنزل أو الأسلاك المكشوفة؛ استخدم بطاريات تعليمية منخفضة الجهد بإشراف المعلم.':'رسوم متحركة تعليمية مبسطة؛ تُجرى التجارب العملية بإشراف المعلم وبأدوات آمنة.')+'</p>';
-const play=$('filmPlay'),seek=$('filmSeek');
+const play=$('filmPlay'),seek=$('filmSeek'),stage=$('filmStage');
+function motionState(run,reset){if(reset)stage.innerHTML=frame(p,0);stage.classList.toggle('is-playing',run);const root=stage.querySelector('svg');if(root&&typeof root.pauseAnimations==='function'){if(run&&typeof root.unpauseAnimations==='function')root.unpauseAnimations();else if(!run)root.pauseAnimations()}}
+motionState(false);
 function draw(v){const i=Math.min(3,Math.floor(v/10));$('filmStage').innerHTML=frame(p,i);$('filmTitle').textContent=caps[i][0];$('filmCaption').textContent=caps[i][1];$('filmTime').textContent='00:'+String(Math.floor(v)).padStart(2,'0');seek.value=v;main.querySelectorAll('[data-scene]').forEach((b,j)=>b.classList.toggle('active',j===i))}
 function pause(){if(timer){clearInterval(timer);timer=null}if(started)elapsed=Math.min(40,(Date.now()-started)/1000);started=0;play.textContent='▶ متابعة'}
 function tick(){const v=(Date.now()-started)/1000;if(v>=40){draw(40);elapsed=40;stop();started=0;play.textContent='↺ إعادة التشغيل'}else{elapsed=v;draw(v)}}
@@ -329,11 +331,11 @@ const n=Math.min(9,Math.floor(v/chapterLength));
 if(n!==current){current=n;$('filmTitle').textContent='الفصل '+(n+1)+' · '+caps[n];$('filmCaption').textContent=caps[n];main.querySelectorAll('[data-scene]').forEach((b,j)=>b.classList.toggle('active',j===n))}
 const mm=Math.floor(v/60),ss=Math.floor(v%60);$('filmTime').textContent=String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');seek.value=v;
 }
-function pause(){if(timer){clearInterval(timer);timer=null}if(localStarted){elapsed=Math.min(totalLength,(Date.now()-localStarted)/1000);localStarted=0}play.textContent='▶ متابعة'}
-function tick(){const v=(Date.now()-localStarted)/1000;if(v>=totalLength){draw(totalLength);elapsed=totalLength;stop();localStarted=0;play.textContent='↺ إعادة من البداية'}else{elapsed=v;draw(v)}}
-function start(){if(elapsed>=totalLength){elapsed=0;draw(0)}localStarted=Date.now()-elapsed*1000;timer=setInterval(tick,100);play.textContent='Ⅱ إيقاف'}
+function pause(){if(timer){clearInterval(timer);timer=null}if(localStarted){elapsed=Math.min(totalLength,(Date.now()-localStarted)/1000);localStarted=0}motionState(false);play.textContent='▶ متابعة'}
+function tick(){const v=(Date.now()-localStarted)/1000;if(v>=totalLength){draw(totalLength);elapsed=totalLength;stop();localStarted=0;motionState(false);play.textContent='↺ إعادة من البداية'}else{elapsed=v;draw(v)}}
+function start(){if(elapsed>=totalLength){elapsed=0;draw(0)}localStarted=Date.now()-elapsed*1000;motionState(true);timer=setInterval(tick,100);play.textContent='Ⅱ إيقاف'}
 play.onclick=()=>timer?pause():(elapsed>=totalLength?(elapsed=0,draw(0),start()):start());
-$('filmRestart').onclick=()=>{pause();elapsed=0;draw(0);play.textContent='▶ تشغيل الفيلم'};
+$('filmRestart').onclick=()=>{pause();elapsed=0;motionState(false,true);draw(0);play.textContent='▶ تشغيل الفيلم'};
 seek.oninput=()=>{pause();elapsed=+seek.value;draw(elapsed)};
 main.querySelectorAll('[data-scene]').forEach(b=>b.onclick=()=>{pause();elapsed=+b.dataset.scene*chapterLength;draw(elapsed)});
 $('filmsBack').onclick=resetLibrary;
