@@ -1,0 +1,64 @@
+{
+  "name": "animexa-studio",
+  "version": "1.0.0",
+  "description": "ANIMEXA Studio desktop app",
+  "main": "desktop/main.cjs",
+  "author": "ANIMEXA",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.animexa.studio",
+    "productName": "ANIMEXA Studio",
+    "asar": true,
+    "files": [
+      "desktop/**/*",
+      "index.html",
+      "academy.js",
+      "academy.css",
+      "films.js",
+      "guide.js",
+      "manifest.webmanifest",
+      "sw.js",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ANIMEXA Studio",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "ANIMEXA-Portable-${version}.${ext}"
+    },
+    "artifactName": "ANIMEXA-Setup-${version}.${ext}"
+  }
+}
