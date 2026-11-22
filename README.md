@@ -4,7 +4,7 @@ ANIMEXA is a browser-based creative editor with a searchable built-in vector ele
 
 ## Included in this first GitHub build
 
-- Arabic, French and English element names and category labels.
+- 53 built-in vector elements with Arabic, French and English names and category labels.
 - Search across element names in all three languages.
 - Categories: shapes, nature, characters, objects, symbols, space and animals.
 - Drag-and-drop or click-to-add elements on the canvas.
