@@ -42,7 +42,7 @@
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button></div></header>
+<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button><button id="exportVideoBtn" class="primary">حفظ فيديو MP4</button></div></header>
 <main class="workspace">
 <aside class="left"><div class="tabs"><button class="active" data-tab="library">مكتبة العناصر</button><button data-tab="tools">الأدوات</button></div>
 <section class="pane" id="libraryPane"><input class="search" id="search" placeholder="ابحث عن عنصر..."><div class="categories" id="categories"></div><div class="library-grid" id="libraryGrid"></div><div class="empty hidden" id="noResults">لا توجد عناصر مطابقة.</div></section>
@@ -452,6 +452,22 @@ function renderLayers(){
 function saveState(){localStorage.setItem('animexa-project',JSON.stringify({name:$('nameInput').value||$('projectName').textContent,objects}));$('saveState').textContent='تم الحفظ محلياً'}
 function loadState(){try{const d=JSON.parse(localStorage.getItem('animexa-project'));if(d){objects=d.objects||[];$('nameInput').value=d.name||'مشروع بدون عنوان';$('projectName').textContent=$('nameInput').value;render()}}catch(e){}}
 function historyMove(back){const from=back?history:future,to=back?future:history;if(!from.length)return;to.push(JSON.stringify(objects));objects=JSON.parse(from.pop());selected=null;selectedIds.clear();render();renderProps()}
+async function exportVideo(){
+ if(!objects.length){alert('أضف عناصر أو مؤثرات إلى المشهد أولاً.');return}
+ if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){alert('تسجيل الفيديو غير مدعوم في هذا المتصفح.');return}
+ const choices=['video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm'];
+ const mime=choices.find(t=>MediaRecorder.isTypeSupported(t));if(!mime){alert('هذا المتصفح لا يدعم ترميز MP4 أو WebM. جرّب متصفحاً أحدث.');return}
+ const isMp4=mime.indexOf('mp4')!==-1;if(!isMp4&&!confirm('المتصفح لا يدعم MP4 مباشرة. يمكن حفظ الفيديو بصيغة WebM بدلاً منه. هل تريد المتابعة؟'))return;
+ const canvas=document.createElement('canvas');canvas.width=1600;canvas.height=900;const ctx=canvas.getContext('2d');const stream=canvas.captureStream(30);let recorder,chunks=[];
+ try{recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6000000})}catch(e){alert('تعذر بدء تسجيل الفيديو في هذا المتصفح.');stream.getTracks().forEach(t=>t.stop());return}
+ recorder.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};recorder.onerror=()=>{stream.getTracks().forEach(t=>t.stop());alert('حدث خطأ أثناء تسجيل الفيديو.')};
+ recorder.onstop=()=>{const ext=isMp4?'mp4':'webm';download(new Blob(chunks,{type:mime}),'animexa-video.'+ext);stream.getTracks().forEach(t=>t.stop());$('exportVideoBtn').disabled=false;$('exportVideoBtn').textContent='حفظ فيديو MP4'};
+ const style=document.querySelector('style')?.textContent||'';const safeStyle=style.split('</style').join('');
+ const source='<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><foreignObject width="1600" height="900"><div xmlns="http://www.w3.org/1999/xhtml" style="position:relative;width:1600px;height:900px;overflow:hidden;background:#fff"><style>'+safeStyle+'</style><div style="position:relative;width:100%;height:100%;overflow:hidden">'+board.innerHTML+'</div></div></foreignObject></svg>';
+ const image=new Image(),url=URL.createObjectURL(new Blob([source],{type:'image/svg+xml;charset=utf-8'}));
+ image.onload=()=>{ctx.fillStyle='#fff';ctx.fillRect(0,0,1600,900);ctx.drawImage(image,0,0,1600,900);URL.revokeObjectURL(url);$('exportVideoBtn').disabled=true;$('exportVideoBtn').textContent='جارٍ تسجيل الفيديو…';recorder.start(200);const start=performance.now();const frame=now=>{ctx.fillStyle='#fff';ctx.fillRect(0,0,1600,900);ctx.drawImage(image,0,0,1600,900);if(now-start<4000)requestAnimationFrame(frame);else recorder.stop()};requestAnimationFrame(frame)};
+ image.onerror=()=>{URL.revokeObjectURL(url);stream.getTracks().forEach(t=>t.stop());alert('تعذر تجهيز المشهد للفيديو. جرّب تصدير SVG أولاً.')};image.src=url;
+}
 function exportSVG(){
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
  const shapes=objects.map(o=>{
@@ -478,7 +494,7 @@ document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.data
 $('alignLeft').onclick=()=>{const a=objects.filter(o=>selectedIds.has(o.id));if(a.length<2)return;snapshot();const x=Math.min(...a.map(o=>o.x));a.forEach(o=>o.x=x);render();saveState()};$('distribute').onclick=()=>{const a=objects.filter(o=>selectedIds.has(o.id)).sort((x,y)=>x.x-y.x);if(a.length<3)return;snapshot();const start=a[0].x,end=a[a.length-1].x,step=(end-start)/(a.length-1);a.forEach((o,i)=>o.x=start+step*i);render();saveState()};$('importSvgBtn').onclick=()=>$('svgFile').click();$('svgFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;const raw=await file.text();const doc=new DOMParser().parseFromString(raw,'image/svg+xml'),root=doc.documentElement;if(root.tagName.toLowerCase()!=='svg'||doc.querySelector('parsererror')){alert('ملف SVG غير صالح');return}root.querySelectorAll('script,foreignObject,iframe,object,embed').forEach(n=>n.remove());root.querySelectorAll('*').forEach(n=>[...n.attributes].forEach(a=>{if(/^on/i.test(a.name)||((a.name==='href'||a.name.endsWith(':href'))&&!a.value.startsWith('#')&&!a.value.startsWith('data:image/')))n.removeAttribute(a.name)}));root.setAttribute('width','100%');root.setAttribute('height','100%');snapshot();const o={id:crypto.randomUUID(),type:'svg',name:file.name.replace(/\.svg$/i,''),svgMarkup:new XMLSerializer().serializeToString(root),x:30,y:25,w:35,h:40,color:'#ffffff',rot:0,opacity:100};objects.push(o);select(o.id);render();saveState();e.target.value=''};
 $('saveBtn').onclick=()=>{saveState();$('projectName').textContent=$('nameInput').value};$('nameInput').oninput=()=>$('projectName').textContent=$('nameInput').value;
 $('newBtn').onclick=()=>{if(confirm('بدء مشروع جديد؟ سيتم حفظ المشروع الحالي أولاً.')){saveState();objects=[];selected=null;render();renderProps()}};
-$('exportBtn').onclick=exportSVG;$('undoBtn').onclick=()=>historyMove(true);$('redoBtn').onclick=()=>historyMove(false);
+$('exportBtn').onclick=exportSVG;$('exportVideoBtn').onclick=exportVideo;$('undoBtn').onclick=()=>historyMove(true);$('redoBtn').onclick=()=>historyMove(false);
 $('deleteBtn').onclick=()=>{const ids=selectedIds.size?selectedIds:new Set(selected?[selected]:[]);if(ids.size){snapshot();objects=objects.filter(o=>!ids.has(o.id));selected=null;selectedIds.clear();render();renderProps();saveState()}};
 $('duplicateBtn').onclick=()=>{const o=objects.find(o=>o.id===selected);if(o){snapshot();const c={...o,id:crypto.randomUUID(),x:Math.min(85,o.x+4),y:Math.min(85,o.y+4)};objects.push(c);select(c.id);saveState()}};
 $('frontBtn').onclick=()=>{const i=objects.findIndex(o=>o.id===selected);if(i>=0){snapshot();objects.push(objects.splice(i,1)[0]);render();saveState()}};
