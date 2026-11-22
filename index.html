@@ -38,11 +38,13 @@
 .mode-switch{display:flex;gap:6px;padding:7px 10px;border-top:1px solid var(--line);background:#111115}.mode-switch button{font-size:11px;padding:6px 14px}.timeline-panel{background:#111115;border-top:1px solid #29292f;padding:8px 10px;max-height:190px;overflow:auto}.timeline-toolbar{display:flex;align-items:center;gap:7px;margin-bottom:8px;flex-wrap:wrap}.timeline-toolbar button{font-size:11px;padding:5px 9px}.timeline-ruler{display:grid;grid-template-columns:140px repeat(5,minmax(0,1fr));align-items:center;color:#9ca3af;font-size:10px;border-bottom:1px solid #30303a;padding:4px 0}.timeline-ruler button{border:0;background:transparent;padding:3px;color:#9ca3af;font-size:10px}.timeline-track{display:grid;grid-template-columns:140px 1fr;align-items:center;min-height:27px;border-bottom:1px solid #24242a;font-size:10px}.timeline-track-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-inline:6px}.timeline-track-lane{height:26px;position:relative;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 1px),#30303a calc(25% - 1px),#30303a 25%)}.key-dot{position:absolute;top:8px;width:9px;height:9px;border-radius:2px;background:#ff9b4a;transform:translateX(-50%) rotate(45deg);border:1px solid #fff;cursor:pointer}.playhead{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:5;pointer-events:none}.playhead:before{content:"";position:absolute;top:0;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #ef4444}.motion-path-overlay{pointer-events:none}.motion-path-overlay path{stroke:#238BFF;stroke-width:1.15;stroke-dasharray:2.2 1.7;vector-effect:non-scaling-stroke}.motion-path-overlay .path-node{fill:#fff;stroke:#1677e8;stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:all;cursor:grab}.motion-path-overlay .path-arrow{fill:#1677e8;stroke:#fff;stroke-width:.35}.obj.selected{outline:2px solid #238BFF;outline-offset:3px}.obj.selected:after{content:"";position:absolute;inset:-4px;border:1px solid #238BFF;pointer-events:none}@media(max-width:620px){.timeline-ruler{grid-template-columns:80px repeat(5,minmax(0,1fr))}.timeline-track{grid-template-columns:80px 1fr}.timeline-panel{max-height:170px}}
 .vector-tools{display:grid;gap:6px}.motion-path-overlay .path-node{pointer-events:all;cursor:grab}.stagearea.pan-mode{cursor:grab}
 .brush-panel{margin-top:14px;padding:11px;background:#101014;border:1px solid #34343d;border-radius:11px}.brush-panel h3{color:#ffad70;margin:0 0 9px}.brush-presets{display:grid;grid-template-columns:1fr 1fr;gap:5px}.brush-presets button,.quick-sizes button{font-size:10px;padding:7px 4px}.brush-presets button.active,.quick-sizes button.active{border-color:#ff7a1a;background:#3a2113;color:#ffc18e}.mini-label{display:block;color:#aaa;font-size:10px;margin:10px 0 6px}.quick-sizes{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.color-palette{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.palette-swatch{width:100%;aspect-ratio:1;border:2px solid #ffffff33;border-radius:6px;padding:0;min-width:0}.palette-swatch.active{outline:2px solid #fff;outline-offset:1px}.top-slider{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:10px;color:#bbb}.top-slider input{width:75px;accent-color:#ff7a1a}.stagearea{position:relative}.layer{gap:5px;flex-wrap:wrap}.layer .layer-name{min-width:55px;flex:1}.layer select{max-width:88px;background:#0d0d10;color:#eee;border:1px solid #383842;border-radius:6px;font-size:9px;padding:4px}.layer input[type=range]{width:54px;accent-color:#ff7a1a}.layer button{padding:4px 6px}.layer button.is-on{color:#ffb276;border-color:#ff7a1a}.layer-hint{font-size:10px;color:#999;line-height:1.6}.obj.layer-hidden{display:none!important}.obj.layer-locked{cursor:not-allowed!important}@media(max-width:620px){.navigator{width:115px}.top-slider input{width:50px}}
+
+.map-lab{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:14px}.map-lab.open{display:flex}.map-card{width:min(1180px,100%);height:min(900px,96vh);background:#151518;border:1px solid #39343a;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 90px #000}.map-head{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #333;flex-wrap:wrap}.map-head strong{color:#ff9b4a}.map-body{display:grid;grid-template-columns:minmax(0,1fr) 280px;min-height:0;flex:1}.map-view{padding:12px;display:flex;flex-direction:column;min-height:0;gap:8px}.map-canvas-wrap{flex:1;min-height:180px;background:#ded6c4;border-radius:10px;overflow:hidden;display:grid;place-items:center}.map-canvas-wrap canvas{width:100%;height:100%;object-fit:contain;touch-action:pan-y;cursor:crosshair}.map-help{font-size:11px;color:#aaa;line-height:1.6}.map-controls{padding:13px;border-right:1px solid #333;overflow:auto}.map-controls h3{font-size:13px;margin:3px 0 12px}.map-controls label{display:block;font-size:11px;color:#bbb;margin:10px 0 5px}.map-controls input,.map-controls select{width:100%;background:#0d0d10;color:#fff;border:1px solid #41414a;border-radius:8px;padding:8px}.map-controls input[type=color]{height:38px;padding:3px}.map-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.map-actions button{flex:1}.map-regions{font-size:11px;color:#ddd;line-height:1.8;margin-top:12px}.map-regions span{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline:5px}.map-close{margin-inline-start:auto}.map-toolbar{display:flex;gap:6px;flex-wrap:wrap}.map-toolbar button{font-size:11px}.map-progress{height:4px;background:#333;border-radius:8px;overflow:hidden}.map-progress i{display:block;height:100%;width:0;background:#ff7a1a}@media(max-width:720px){.map-body{grid-template-columns:1fr;grid-template-rows:minmax(220px,1fr) auto}.map-controls{border-right:0;border-top:1px solid #333;max-height:40vh}.map-card{height:96vh}.map-view{padding:8px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button><button id="exportVideoBtn" class="primary">حفظ فيديو MP4 إن أمكن</button></div></header>
+<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button><button id="exportVideoBtn" class="primary">حفظ فيديو MP4 إن أمكن</button><button id="openMapLabBtn">🗺 خرائط الدول</button></div></header>
 <main class="workspace">
 <aside class="left"><div class="tabs"><button class="active" data-tab="library">مكتبة العناصر</button><button data-tab="tools">الأدوات</button></div>
 <section class="pane" id="libraryPane"><div class="library-modes"><button class="active" data-library-mode="simple">بسيط · أشكال ورسومات</button><button data-library-mode="2d">2D · رسومات وعناصر</button></div><input class="search" id="search" placeholder="ابحث عن عنصر..."><div class="categories" id="categories"></div><div class="library-grid" id="libraryGrid"></div><div class="empty hidden" id="noResults">لا توجد عناصر مطابقة.</div></section>
@@ -54,6 +56,36 @@
 <aside class="right"><div class="tabs"><button class="active" data-rtab="properties">الخصائص</button><button data-rtab="layers">الطبقات</button></div><section class="pane" id="propertiesPane"><h3>خصائص العنصر</h3><div id="noSelection" class="empty">حدد عنصراً لعرض خصائصه وتحريره.</div><div id="props" class="hidden"><div class="field"><label>اسم العنصر</label><input id="propName"></div><div class="field" id="colorField"><label>التعبئة / اللون الأساسي</label><input type="color" id="propColor"><button type="button" id="resetColorBtn" style="width:100%;margin-top:5px">استعادة اللون الأصلي</button></div><div class="field"><label>لون الحدود</label><input type="color" id="propStroke" value="#26324a"></div><div class="field"><label>سماكة الحدود</label><input type="range" id="propStrokeWidth" min="0" max="12" step=".5" value="1.5"></div><div class="field hidden" id="variantField"><label id="variantLabel">الموسم</label><select id="propVariant"></select></div><div class="row"><div class="field"><label>العرض %</label><input type="number" id="propW" min="1" max="100"></div><div class="field"><label>الارتفاع %</label><input type="number" id="propH" min="1" max="100"></div></div><div class="row"><div class="field"><label>الموضع الأفقي %</label><input type="number" id="propX" min="0" max="100"></div><div class="field"><label>الموضع العمودي %</label><input type="number" id="propY" min="0" max="100"></div></div><div class="field"><label>الدوران: <span id="rotValue">0</span>°</label><input type="range" id="propRot" min="-180" max="180" value="0"></div><div class="field"><label>الشفافية: <span id="opacityValue">100</span>%</label><input type="range" id="propOpacity" min="5" max="100" value="100"></div><div class="field" id="textField"><label>النص</label><input id="propText"></div><div class="motion-controls hidden" id="motionControls"><h4>إعدادات الحركة</h4><div class="field"><label>السرعة: <span id="speedValue">55</span>%</label><input type="range" id="propSpeed" min="1" max="100" value="55"></div><div class="field"><label>الكثافة: <span id="densityValue">8</span></label><input type="range" id="propDensity" min="1" max="20" value="8"></div><div class="field"><label>الاتجاه: <span id="directionValue">0</span>°</label><input type="range" id="propDirection" min="-180" max="180" value="0"></div><small>غيّر سرعة المؤثر وعدد جسيماته واتجاه حركته.</small></div><button id="duplicateBtn" style="width:100%">نسخ العنصر</button></div></section><section class="pane hidden" id="layersPane"><h3>ترتيب الطبقات</h3><div id="layers" class="layers"></div><p class="layer-hint">لكل طبقة: إظهار، قفل، شفافية ونمط دمج مستقل.</p></section></aside>
 </main><footer class="status"><span class="online">● يعمل دون اتصال بعد أول تحميل</span><span id="objectCount">0 عنصر</span><span id="saveState">لم يتم الحفظ بعد</span><span style="margin-inline-start:auto">ANIMEXA 1.0</span></footer>
 </div>
+
+<div class="map-lab" id="mapLab" role="dialog" aria-modal="true" aria-label="محرر خرائط الدول">
+ <div class="map-card">
+  <div class="map-head"><strong>ANIMEXA · خرائط الدول والسيطرة</strong><span style="font-size:11px;color:#aaa">ارفع خريطة ثم ارسم حدود الدولة أو المنطقة يدوياً</span><button class="map-close" id="closeMapLabBtn">إغلاق ×</button></div>
+  <div class="map-body">
+   <div class="map-view">
+    <div class="map-toolbar"><button id="mapUploadBtn">رفع خريطة قديمة / صورة</button><input id="mapImageInput" type="file" accept="image/*" hidden><button id="mapUndoPointBtn">تراجع عن نقطة</button><button id="mapClearPointsBtn">مسح النقاط</button><button id="mapFitBtn">ملاءمة الخريطة</button></div>
+    <div class="map-canvas-wrap"><canvas id="mapCanvas" width="1200" height="675"></canvas></div>
+    <div class="map-help" id="mapHelp">1) ارفع صورة خريطة. 2) أدخل اسم الدولة ولونها. 3) انقر حول حدودها نقطةً بعد نقطة، ثم اضغط «اعتماد المنطقة». كرر ذلك لإضافة دول أخرى.</div>
+    <div class="map-progress"><i id="mapProgressBar"></i></div>
+   </div>
+   <aside class="map-controls">
+    <h3>إعداد المنطقة المحددة</h3>
+    <label for="mapCountryName">اسم الدولة / المنطقة</label><input id="mapCountryName" placeholder="مثال: تونس">
+    <label for="mapCountryColor">لون السيطرة</label><input id="mapCountryColor" type="color" value="#e65a24">
+    <div class="map-actions"><button class="primary" id="mapAddRegionBtn">اعتماد المنطقة</button><button id="mapClearRegionsBtn">حذف الكل</button></div>
+    <div class="map-regions" id="mapRegionsList">لم تتم إضافة مناطق بعد.</div>
+    <hr style="border:0;border-top:1px solid #333;margin:14px 0">
+    <h3>طريقة انتشار اللون</h3>
+    <label for="mapDirection">اتجاه الانتشار</label><select id="mapDirection"><option value="bottom">من الأسفل إلى الأعلى</option><option value="top">من الأعلى إلى الأسفل</option><option value="left">من اليمين إلى اليسار</option><option value="right">من اليسار إلى اليمين</option><option value="center">من الوسط إلى الأطراف</option></select>
+    <label for="mapDuration">مدة الانتشار: <b id="mapDurationValue">4</b> ثوانٍ</label><input id="mapDuration" type="range" min="1" max="20" value="4">
+    <label for="mapOpacity">قوة اللون: <b id="mapOpacityValue">85</b>%</label><input id="mapOpacity" type="range" min="10" max="100" value="85">
+    <div class="map-actions"><button class="primary" id="mapPlayBtn">▶ تشغيل الانتشار</button><button id="mapResetBtn">إعادة</button></div>
+    <div class="map-actions"><button id="mapExportBtn">حفظ صورة PNG</button></div>
+    <p class="map-help">هذه محاكاة بصرية تعليمية: حدود المناطق تُرسم يدوياً فوق الصورة، ويمكن تغيير الاتجاه والسرعة واللون. لا يتم التعرف على الدول تلقائياً من الصور.</p>
+   </aside>
+  </div>
+ </div>
+</div>
+
 <script>
 (()=>{
 let brushType='pencil',brushColor='#ff7a1a',brushSmooth=35;
@@ -64,6 +96,59 @@ function renderColorPalette(){$('colorPalette').innerHTML=brushColors.map(c=>'<b
 
 function smoothBrushPoints(points){if(points.length<3||brushSmooth<=0)return points;const out=[points[0]],f=brushSmooth/100;for(let i=1;i<points.length;i++){const p=points[i],q=out[out.length-1];out.push({x:q.x+(p.x-q.x)*(1-f*.82),y:q.y+(p.y-q.y)*(1-f*.82)})}return out}
 const $=id=>document.getElementById(id), board=$('board');
+
+const mapLabState={image:null,points:[],regions:[],progress:0,playing:false,raf:0,start:0,from:0};
+const mapCanvas=$('mapCanvas'),mapCtx=mapCanvas.getContext('2d');
+function mapDrawBase(){
+ mapCtx.clearRect(0,0,mapCanvas.width,mapCanvas.height);
+ mapCtx.fillStyle='#e8e0ce';mapCtx.fillRect(0,0,mapCanvas.width,mapCanvas.height);
+ if(mapLabState.image){const im=mapLabState.image,scale=Math.min(mapCanvas.width/im.width,mapCanvas.height/im.height),w=im.width*scale,h=im.height*scale;mapCtx.drawImage(im,(mapCanvas.width-w)/2,(mapCanvas.height-h)/2,w,h)}
+ else {mapCtx.strokeStyle='rgba(90,80,60,.14)';mapCtx.lineWidth=1;for(let x=0;x<=1200;x+=60){mapCtx.beginPath();mapCtx.moveTo(x,0);mapCtx.lineTo(x,675);mapCtx.stroke()}for(let y=0;y<=675;y+=60){mapCtx.beginPath();mapCtx.moveTo(0,y);mapCtx.lineTo(1200,y);mapCtx.stroke()}mapCtx.fillStyle='#82765f';mapCtx.font='24px Segoe UI';mapCtx.textAlign='center';mapCtx.fillText('ارفع صورة خريطة للبدء',600,335)}
+}
+function mapPolygonPath(points){mapCtx.beginPath();points.forEach((p,i)=>i?mapCtx.lineTo(p.x*1200,p.y*675):mapCtx.moveTo(p.x*1200,p.y*675));mapCtx.closePath()}
+function mapDraw(){
+ mapDrawBase();
+ const dir=$('mapDirection').value,alpha=+$('mapOpacity').value/100;
+ mapLabState.regions.forEach((r,i)=>{
+  if(r.points.length<3)return;
+  mapPolygonPath(r.points);mapCtx.save();mapCtx.clip();
+  const p=Math.max(0,Math.min(1,mapLabState.progress));
+  if(dir==='center'){
+   const xs=r.points.map(v=>v.x*1200),ys=r.points.map(v=>v.y*675),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2,rad=Math.hypot(Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys))*.72;
+   const g=mapCtx.createRadialGradient(cx,cy,0,cx,cy,Math.max(1,rad));g.addColorStop(0,r.color);g.addColorStop(p,r.color);g.addColorStop(Math.min(1,p+.002),'rgba(0,0,0,0)');mapCtx.globalAlpha=alpha;mapCtx.fillStyle=g;mapCtx.fillRect(0,0,1200,675);
+  }else{
+   let x1=0,y1=0,x2=0,y2=0;
+   if(dir==='bottom'){x1=0;y1=675;x2=0;y2=0}else if(dir==='top'){x1=0;y1=0;x2=0;y2=675}else if(dir==='left'){x1=1200;y1=0;x2=0;y2=0}else{x1=0;y1=0;x2=1200;y2=0}
+   const dx=x2-x1,dy=y2-y1,vals=r.points.map(v=>(v.x*1200-x1)*dx+(v.y*675-y1)*dy),max=Math.max(...vals),min=Math.min(...vals),end=min+(max-min)*p;
+   const ex=x1+dx*(end/Math.max(1,dx*dx+dy*dy)),ey=y1+dy*(end/Math.max(1,dx*dx+dy*dy));
+   const g=mapCtx.createLinearGradient(x1,y1,x2,y2);g.addColorStop(0,r.color);g.addColorStop(p,r.color);g.addColorStop(Math.min(1,p+.002),'rgba(0,0,0,0)');mapCtx.globalAlpha=alpha;mapCtx.fillStyle=g;mapCtx.fillRect(0,0,1200,675);
+  }
+  mapCtx.restore();mapPolygonPath(r.points);mapCtx.strokeStyle=r.color;mapCtx.lineWidth=3;mapCtx.stroke();
+  const cx=r.points.reduce((a,v)=>a+v.x,0)/r.points.length*1200,cy=r.points.reduce((a,v)=>a+v.y,0)/r.points.length*675;mapCtx.fillStyle='#161616';mapCtx.font='bold 19px Segoe UI';mapCtx.textAlign='center';mapCtx.fillText(r.name,cx,cy);
+ });
+ if(mapLabState.points.length){mapCtx.beginPath();mapLabState.points.forEach((p,i)=>i?mapCtx.lineTo(p.x*1200,p.y*675):mapCtx.moveTo(p.x*1200,p.y*675));mapCtx.strokeStyle='#ff7a1a';mapCtx.lineWidth=3;mapCtx.stroke();mapLabState.points.forEach(p=>{mapCtx.beginPath();mapCtx.arc(p.x*1200,p.y*675,7,0,Math.PI*2);mapCtx.fillStyle='#ff7a1a';mapCtx.fill()})}
+ $('mapProgressBar').style.width=(mapLabState.progress*100)+'%';
+}
+function mapList(){ $('mapRegionsList').innerHTML=mapLabState.regions.length?mapLabState.regions.map((r,i)=>'<div><span style="background:'+r.color+'"></span>'+(i+1)+'. '+r.name+' · '+r.points.length+' نقطة</div>').join(''):'لم تتم إضافة مناطق بعد.'}
+function mapStop(){mapLabState.playing=false;if(mapLabState.raf)cancelAnimationFrame(mapLabState.raf);mapLabState.raf=0}
+function mapAnimateFrame(now){if(!mapLabState.playing)return;const duration=+$('mapDuration').value*1000;mapLabState.progress=Math.min(1,mapLabState.from+(now-mapLabState.start)/duration);mapDraw();if(mapLabState.progress<1)mapLabState.raf=requestAnimationFrame(mapAnimateFrame);else mapStop()}
+$('openMapLabBtn').onclick=()=>{$('mapLab').classList.add('open');mapDraw();mapList()};
+$('closeMapLabBtn').onclick=()=>{mapStop();$('mapLab').classList.remove('open')};
+$('mapUploadBtn').onclick=()=>$('mapImageInput').click();
+$('mapImageInput').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(!f.type.startsWith('image/')){alert('اختر ملف صورة صالحاً');return}const url=URL.createObjectURL(f),im=new Image();im.onload=()=>{mapLabState.image=im;mapLabState.points=[];mapDraw();URL.revokeObjectURL(url)};im.onerror=()=>{alert('تعذر قراءة الصورة');URL.revokeObjectURL(url)};im.src=url;e.target.value=''};
+mapCanvas.addEventListener('click',e=>{if(mapLabState.playing)return;const r=mapCanvas.getBoundingClientRect();mapLabState.points.push({x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))});mapDraw()});
+$('mapUndoPointBtn').onclick=()=>{mapLabState.points.pop();mapDraw()};
+$('mapClearPointsBtn').onclick=()=>{mapLabState.points=[];mapDraw()};
+$('mapAddRegionBtn').onclick=()=>{const name=$('mapCountryName').value.trim();if(!name){alert('اكتب اسم الدولة أو المنطقة أولاً');return}if(mapLabState.points.length<3){alert('حدد المنطقة بثلاث نقاط على الأقل');return}mapLabState.regions.push({name,color:$('mapCountryColor').value,points:mapLabState.points.map(p=>({...p}))});mapLabState.points=[];mapList();mapDraw();$('mapHelp').textContent='تم اعتماد المنطقة. يمكنك إدخال دولة أخرى ورسم حدودها أو تشغيل الانتشار.'};
+$('mapClearRegionsBtn').onclick=()=>{if(!mapLabState.regions.length)return;mapLabState.regions=[];mapLabState.progress=0;mapList();mapDraw()};
+$('mapDirection').onchange=mapDraw;
+$('mapDuration').oninput=e=>$('mapDurationValue').textContent=e.target.value;
+$('mapOpacity').oninput=e=>{$('mapOpacityValue').textContent=e.target.value;mapDraw()};
+$('mapPlayBtn').onclick=()=>{if(!mapLabState.regions.length){alert('أضف منطقة واحدة على الأقل أولاً');return}mapStop();mapLabState.progress=0;mapLabState.from=0;mapLabState.start=performance.now();mapLabState.playing=true;mapLabState.raf=requestAnimationFrame(mapAnimateFrame)};
+$('mapResetBtn').onclick=()=>{mapStop();mapLabState.progress=0;mapDraw()};
+$('mapFitBtn').onclick=mapDraw;
+$('mapExportBtn').onclick=()=>{mapDraw();mapCanvas.toBlob(blob=>{if(!blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='animexa-country-map.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200)},'image/png')};
+
 const translations={
 ar:{categories:['الكل','أشكال','طبيعة','شخصيات','أشياء','رموز','فضاء','حيوانات','مؤثرات الحركة'],search:'ابحث عن عنصر...',no:'لا توجد عناصر مطابقة.'},
 fr:{categories:['Tout','Formes','Nature','Personnages','Objets','Symboles','Espace','Animaux','Effets de mouvement'],search:'Rechercher un élément...',no:'Aucun élément trouvé.'},
