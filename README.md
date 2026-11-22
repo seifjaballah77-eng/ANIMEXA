@@ -12,7 +12,9 @@ ANIMEXA is a browser-based Arabic-first vector and motion editor.
 - Elements / Animations mode switcher and a 0–4 second timeline with playhead, keyframes and grouping controls.
 - Shift-click multi-selection, grouping and ungrouping, alignment and distribution.
 - Mouse rotation and resizing handles.
-- Freehand pen, path node editing, hand/pan tool, zoom controls and basic shapes.
+- Freehand brush presets (pencil, watercolor-style translucent stroke, airbrush-style soft-opacity stroke, blend-style translucent stroke and white-overlay eraser), quick brush sizes, opacity controls and weighted stroke smoothing with distance/delay controls.
+- Quick color palette and a scene overview navigator.
+- Per-object layer visibility, lock, opacity and blend mode controls (Normal, Multiply, Screen, Overlay and Add).
 - Fill and stroke controls, opacity and gradients in the asset library.
 - SVG import with basic script/external-reference sanitization.
 - Animated SVG export uses SVG `<animateMotion>` for motion paths and `<animateTransform>` for keyframes.
@@ -28,4 +30,5 @@ SVG import is available in the left Tools panel. Export SVG creates an SVG file;
 
 - Boolean path operations (true union, subtraction and intersection) are not yet implemented as geometry operations; grouping is available.
 - Imported SVG content is retained as vector markup, but arbitrary third-party filters, fonts and external linked resources may not render identically in every browser.
+- The brush engine currently creates editable vector strokes with stylized opacity/width presets; it is not yet a raster pigment simulation. The eraser is a white overlay stroke, not destructive alpha erasing, and blend mode is applied per object.
 - Timeline playback is a lightweight 0–4 second editor timeline, not a full audio/video compositor.
