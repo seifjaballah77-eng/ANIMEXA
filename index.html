@@ -255,7 +255,8 @@ comet:['#E0F2FE','#7DD3FC','#2563EB'],
 dog:['#FDE68A','#B7793E','#78350F'],
 bird:['#FEF08A','#EAB308','#B45309'],
 turtle:['#BBF7D0','#22C55E','#166534'],
-whale:['#BAE6FD','#0284C7','#1E40AF']
+whale:['#BAE6FD','#0284C7','#1E40AF'],
+breeze:['#CFFAFE','#38BDF8','#0369A1'],'wind-gust':['#E0F2FE','#3B82F6','#1E3A8A'],'air-swirl':['#A5F3FC','#06B6D4','#0E7490'],dust:['#FDE68A','#D6B889','#78716C'],'wind-leaves':['#D9F99D','#F59E0B','#B45309'],'swaying-grass':['#BEF264','#16A34A','#14532D'],smoke:['#F8FAFC','#CBD5E1','#64748B'],ripples:['#CFFAFE','#06B6D4','#155E75'],'rolling-waves':['#7DD3FC','#0284C7','#0C4A6E'],'flowing-stream':['#BAE6FD','#38BDF8','#0369A1'],'water-splash':['#E0F2FE','#38BDF8','#0284C7'],bubbles:['#E0F2FE','#7DD3FC','#0284C7'],waterfall:['#E0F2FE','#60A5FA','#0369A1'],'water-shimmer':['#CCFBF1','#2DD4BF','#0F766E'],embers:['#FDE047','#F97316','#B91C1C'],rain:['#DBEAFE','#60A5FA','#1D4ED8'],snow:['#FFFFFF','#E0F2FE','#93C5FD'],'light-rays':['#FEF3C7','#FDE047','#F59E0B'],'ground-shadow':['#CBD5E1','#64748B','#334155']
 };
 function paletteFor(a){return customPalettes[a[0]]||(a[1]==='motion'?['#BAE6FD','#0EA5E9','#164E63']:palettes[a[1]][0])}
 function assetAccent(a){return paletteFor(a)[1]}
@@ -277,8 +278,8 @@ const treeSeasonArt={
 };
 const seasonLabels={ar:{spring:'الربيع',summer:'الصيف',autumn:'الخريف',winter:'الشتاء'},fr:{spring:'Printemps',summer:'Été',autumn:'Automne',winter:'Hiver'},en:{spring:'Spring',summer:'Summer',autumn:'Autumn',winter:'Winter'}};
 
-const motionDefaults={rain:90,snow:90,waterfall:90,bubbles:-90,embers:-90,smoke:-90};
-const motionModes={breeze:'fx-float','wind-gust':'fx-fall','air-swirl':'fx-spin',dust:'fx-float','wind-leaves':'fx-float','swaying-grass':'fx-sway',smoke:'fx-rise',ripples:'fx-pulse','rolling-waves':'fx-wave','flowing-stream':'fx-wave','water-splash':'fx-float',bubbles:'fx-rise',waterfall:'fx-fall','water-shimmer':'fx-flicker',embers:'fx-rise',rain:'fx-fall',snow:'fx-float','light-rays':'fx-flicker','ground-shadow':'fx-pulse'};
+const motionDefaults={};
+const motionModes={breeze:'fx-float','wind-gust':'fx-wave','air-swirl':'fx-spin',dust:'fx-float','wind-leaves':'fx-float','swaying-grass':'fx-sway',smoke:'fx-rise',ripples:'fx-pulse','rolling-waves':'fx-wave','flowing-stream':'fx-wave','water-splash':'fx-float',bubbles:'fx-rise',waterfall:'fx-fall','water-shimmer':'fx-flicker',embers:'fx-rise',rain:'fx-fall',snow:'fx-float','light-rays':'fx-flicker','ground-shadow':'fx-pulse'};
 function motionParticles(id,count,gradientId){
  let out='';
  for(let i=0;i<count;i++){
@@ -302,7 +303,7 @@ function motionParticles(id,count,gradientId){
  return out;
 }
 function motionSvg(a,color,unique,fx){
- const palette=paletteFor(a),id='motionGrad-'+a[0]+'-'+String(unique).replace(/[^a-zA-Z0-9_-]/g,'');
+ const basePalette=paletteFor(a),palette=color&&color.toLowerCase()!==assetAccent(a).toLowerCase()?tintPalette(color):basePalette,id='motionGrad-'+a[0]+'-'+String(unique).replace(/[^a-zA-Z0-9_-]/g,'');
  const speed=Math.max(1,Math.min(100,Number(fx.speed)||55));
  const density=Math.max(1,Math.min(20,Number(fx.density)||8));
  const angle=Number.isFinite(Number(fx.direction))?Number(fx.direction):(motionDefaults[a[0]]||0);
@@ -341,7 +342,7 @@ function startPathAnimation(){
   const active=objects.filter(o=>o.motionPath&&o.motionPath.length>1);
   if(!active.length)return;
   active.forEach(o=>{
-   const el=board.querySelector('[data-id="'+o.id+'"]');if(!el)return;
+   const el=board.querySelector('[data-id="'+o.id+'"]');if(!el||(drag&&drag.o===o))return;
    const speed=Math.max(1,Math.min(100,Number(o.speed)||55));
    const duration=7000-speed*64;
    let phase=(now%duration)/duration;
