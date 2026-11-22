@@ -41,10 +41,11 @@
 
 .map-lab{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:14px}.map-lab.open{display:flex}.map-card{width:min(1180px,100%);height:min(900px,96vh);background:#151518;border:1px solid #39343a;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 90px #000}.map-head{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #333;flex-wrap:wrap}.map-head strong{color:#ff9b4a}.map-body{display:grid;grid-template-columns:minmax(0,1fr) 280px;min-height:0;flex:1}.map-view{padding:12px;display:flex;flex-direction:column;min-height:0;gap:8px}.map-canvas-wrap{flex:1;min-height:180px;background:#ded6c4;border-radius:10px;overflow:hidden;display:grid;place-items:center}.map-canvas-wrap canvas{width:100%;height:100%;object-fit:contain;touch-action:pan-y;cursor:crosshair}.map-help{font-size:11px;color:#aaa;line-height:1.6}.map-controls{padding:13px;border-right:1px solid #333;overflow:auto}.map-controls h3{font-size:13px;margin:3px 0 12px}.map-controls label{display:block;font-size:11px;color:#bbb;margin:10px 0 5px}.map-controls input,.map-controls select{width:100%;background:#0d0d10;color:#fff;border:1px solid #41414a;border-radius:8px;padding:8px}.map-controls input[type=color]{height:38px;padding:3px}.map-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.map-actions button{flex:1}.map-regions{font-size:11px;color:#ddd;line-height:1.8;margin-top:12px}.map-regions span{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline:5px}.map-close{margin-inline-start:auto}.map-toolbar{display:flex;gap:6px;flex-wrap:wrap}.map-toolbar button{font-size:11px}.map-progress{height:4px;background:#333;border-radius:8px;overflow:hidden}.map-progress i{display:block;height:100%;width:0;background:#ff7a1a}@media(max-width:720px){.map-body{grid-template-columns:1fr;grid-template-rows:minmax(220px,1fr) auto}.map-controls{border-right:0;border-top:1px solid #333;max-height:40vh}.map-card{height:96vh}.map-view{padding:8px}}
 </style>
+<link rel="stylesheet" href="./academy.css">
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button><button id="exportVideoBtn" class="primary">حفظ فيديو MP4 إن أمكن</button><button id="openMapLabBtn">🗺 خرائط الدول</button></div></header>
+<header class="top"><div class="brand"><div class="logo">A</div><span>ANI<b>MEXA</b></span></div><strong id="projectName" style="font-size:12px;color:#aaa">مشروع بدون عنوان</strong><div class="top-actions"><button id="langBtn">العربية</button><button id="newBtn">＋ جديد</button><button id="saveBtn" class="primary">حفظ المشروع</button><button id="exportBtn">تصدير SVG متحرك</button><button id="exportVideoBtn" class="primary">حفظ فيديو MP4 إن أمكن</button><button id="openAcademyBtn" class="primary">الدروس والمشاريع</button><button id="openMapLabBtn">🗺 خرائط الدول</button></div></header>
 <main class="workspace">
 <aside class="left"><div class="tabs"><button class="active" data-tab="library">مكتبة العناصر</button><button data-tab="tools">الأدوات</button></div>
 <section class="pane" id="libraryPane"><div class="library-modes"><button class="active" data-library-mode="simple">بسيط · أشكال ورسومات</button><button data-library-mode="2d">2D · رسومات وعناصر</button></div><input class="search" id="search" placeholder="ابحث عن عنصر..."><div class="categories" id="categories"></div><div class="library-grid" id="libraryGrid"></div><div class="empty hidden" id="noResults">لا توجد عناصر مطابقة.</div></section>
@@ -55,6 +56,18 @@
 <div class="timeline-panel hidden" id="timelinePanel"><div class="timeline-toolbar"><button id="playTimeline">▶ تشغيل</button><button id="stopTimeline">■ إيقاف</button><button id="addKeyframe">◆ إضافة إطار مفتاحي</button><button id="groupBtn">Group +</button><button id="ungroupBtn">Ungroup</button><label style="font-size:10px;color:#aaa">الزمن <b id="timeReadout">0.0s</b></label><input id="timeRange" type="range" min="0" max="4" step=".05" value="0" style="width:130px;accent-color:#238BFF"></div><div class="timeline-ruler"><span>العنصر / المجموعة</span><button data-time="0">0s</button><button data-time="1">1s</button><button data-time="2">2s</button><button data-time="3">3s</button><button data-time="4">4s</button></div><div id="timelineTracks"></div></div></section>
 <aside class="right"><div class="tabs"><button class="active" data-rtab="properties">الخصائص</button><button data-rtab="layers">الطبقات</button></div><section class="pane" id="propertiesPane"><h3>خصائص العنصر</h3><div id="noSelection" class="empty">حدد عنصراً لعرض خصائصه وتحريره.</div><div id="props" class="hidden"><div class="field"><label>اسم العنصر</label><input id="propName"></div><div class="field" id="colorField"><label>التعبئة / اللون الأساسي</label><input type="color" id="propColor"><button type="button" id="resetColorBtn" style="width:100%;margin-top:5px">استعادة اللون الأصلي</button></div><div class="field"><label>لون الحدود</label><input type="color" id="propStroke" value="#26324a"></div><div class="field"><label>سماكة الحدود</label><input type="range" id="propStrokeWidth" min="0" max="12" step=".5" value="1.5"></div><div class="field hidden" id="variantField"><label id="variantLabel">الموسم</label><select id="propVariant"></select></div><div class="row"><div class="field"><label>العرض %</label><input type="number" id="propW" min="1" max="100"></div><div class="field"><label>الارتفاع %</label><input type="number" id="propH" min="1" max="100"></div></div><div class="row"><div class="field"><label>الموضع الأفقي %</label><input type="number" id="propX" min="0" max="100"></div><div class="field"><label>الموضع العمودي %</label><input type="number" id="propY" min="0" max="100"></div></div><div class="field"><label>الدوران: <span id="rotValue">0</span>°</label><input type="range" id="propRot" min="-180" max="180" value="0"></div><div class="field"><label>الشفافية: <span id="opacityValue">100</span>%</label><input type="range" id="propOpacity" min="5" max="100" value="100"></div><div class="field" id="textField"><label>النص</label><input id="propText"></div><div class="motion-controls hidden" id="motionControls"><h4>إعدادات الحركة</h4><div class="field"><label>السرعة: <span id="speedValue">55</span>%</label><input type="range" id="propSpeed" min="1" max="100" value="55"></div><div class="field"><label>الكثافة: <span id="densityValue">8</span></label><input type="range" id="propDensity" min="1" max="20" value="8"></div><div class="field"><label>الاتجاه: <span id="directionValue">0</span>°</label><input type="range" id="propDirection" min="-180" max="180" value="0"></div><small>غيّر سرعة المؤثر وعدد جسيماته واتجاه حركته.</small></div><button id="duplicateBtn" style="width:100%">نسخ العنصر</button></div></section><section class="pane hidden" id="layersPane"><h3>ترتيب الطبقات</h3><div id="layers" class="layers"></div><p class="layer-hint">لكل طبقة: إظهار، قفل، شفافية ونمط دمج مستقل.</p></section></aside>
 </main><footer class="status"><span class="online">● يعمل دون اتصال بعد أول تحميل</span><span id="objectCount">0 عنصر</span><span id="saveState">لم يتم الحفظ بعد</span><span style="margin-inline-start:auto">ANIMEXA 1.0</span></footer>
+</div>
+
+<div class="academy-overlay" id="academyOverlay" role="dialog" aria-modal="true" aria-label="دروس ومشاريع العلوم">
+ <div class="academy-shell">
+  <div class="academy-head">
+   <div class="academy-brand"><div class="academy-logo">A</div><div><strong>ANIMEXA · التعلّم</strong><small>دروس العلوم ومشاريع قابلة للتعديل</small></div></div>
+   <div class="academy-head-stats"><b>7</b> محاور · <b>14</b> درس · <b>100</b> مشروع</div>
+   <button class="academy-close" id="closeAcademyBtn">إغلاق ×</button>
+  </div>
+  <div class="academy-tabs"><button id="academyLessonsTab" class="active">المحاور والدروس</button><button id="academyProjectsTab">المشاريع الجاهزة · 100</button><span id="academyDoneCount" style="margin-inline-start:auto;align-self:center;color:#aaa;font-size:10px">0 / 14 درس</span></div>
+  <div class="academy-content" id="academyContent"></div>
+ </div>
 </div>
 
 <div class="map-lab" id="mapLab" role="dialog" aria-modal="true" aria-label="محرر خرائط الدول">
@@ -601,6 +614,20 @@ $('drawColor').onchange=e=>brushColor=e.target.value;
 renderColorPalette();setBrushSize(10);setBrushOpacity(100);
 renderCategories();renderLibrary();loadState();startPathAnimation();
 if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+window.addEventListener('animexa:load-template',e=>{
+ const data=e.detail||{};
+ if(!Array.isArray(data.objects)||!data.objects.length)return;
+ snapshot();
+ objects=data.objects.map(o=>({...o,id:(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'tpl-'+Date.now()+'-'+Math.random()}));
+ selected=objects[0].id;selectedIds=new Set([selected]);timelineTime=0;
+ const title=data.name||'مشروع جاهز';
+ $('nameInput').value=title;$('projectName').textContent=title;
+ render();renderProps();renderTimeline();saveState();
+ document.querySelector('.workspace')?.scrollIntoView({block:'nearest'});
+});
+
 })();
 </script>
+<script src="./academy.js" defer></script>
 </body></html>
