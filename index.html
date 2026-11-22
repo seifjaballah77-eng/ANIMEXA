@@ -669,7 +669,7 @@ function finishInteraction(ev){let done=false;if(drag&&(!ev||ev.pointerId===drag
 window.addEventListener('pointerup',finishInteraction);window.addEventListener('pointercancel',finishInteraction);
 // Centralized object pointer handling: selection, move, resize and rotate all begin here.
 board.addEventListener('pointerdown',e=>{
- const el=e.target.closest&&e.target.closest('.obj');if(!el||pathDrawing||activeTool!=='select'||e.button!==0)return;
+ const el=e.target.closest&&e.target.closest('.obj');if(!el||pathDrawing||e.button!==0)return;
  const o=objects.find(x=>x.id===el.dataset.id);if(!o||o.locked)return;
  e.preventDefault();e.stopImmediatePropagation();
  if(e.shiftKey){if(selectedIds.has(o.id))selectedIds.delete(o.id);else selectedIds.add(o.id);selected=o.id}
