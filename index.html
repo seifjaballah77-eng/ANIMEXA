@@ -680,23 +680,6 @@ board.addEventListener('pointerdown',e=>{
  else if(e.target.closest('.handle'))resizeStart(e,o,el);
  else if(!(e.target.closest('.objtext')&&e.target.isContentEditable))dragStart(e,o,el);
 },true);
-// Mouse-only fallback for older browsers without Pointer Events.
-if(!window.PointerEvent){
- board.addEventListener('mousedown',e=>{
-  const el=e.target.closest&&e.target.closest('.obj');if(!el||pathDrawing||activeTool!=='select'||e.button!==0)return;
-  const o=objects.find(x=>x.id===el.dataset.id);if(!o||o.locked)return;
-  e.preventDefault();e.stopPropagation();selected=o.id;selectedIds=new Set([o.id]);board.querySelectorAll('.obj').forEach(n=>n.classList.toggle('selected',n.dataset.id===o.id));renderProps();renderLayers();
-  if(e.target.closest('.rotate-handle'))rotateStart(e,o,el);else if(e.target.closest('.handle'))resizeStart(e,o,el);else dragStart(e,o,el);
-  [drag,resizeDrag,rotateDrag].forEach(v=>{if(v)v.pointerId='mouse'});
- },true);
- window.addEventListener('mousemove',e=>{
-  const r=board.getBoundingClientRect();if(!r.width||!r.height)return;
-  if(drag&&drag.pointerId==='mouse'){drag.o.x=Math.max(0,Math.min(100-drag.o.w,drag.ox+(e.clientX-drag.x)/r.width*100));drag.o.y=Math.max(0,Math.min(100-drag.o.h,drag.oy+(e.clientY-drag.y)/r.height*100));drag.el.style.left=drag.o.x+'%';drag.el.style.top=drag.o.y+'%';syncProps();return}
-  if(rotateDrag&&rotateDrag.pointerId==='mouse'){const a=Math.atan2(e.clientY-rotateDrag.cy,e.clientX-rotateDrag.cx);let v=rotateDrag.startRot+(a-rotateDrag.startAngle)*180/Math.PI;while(v>180)v-=360;while(v< -180)v+=360;rotateDrag.o.rot=Math.round(v);rotateDrag.el.style.transform='rotate('+rotateDrag.o.rot+'deg)';$('propRot').value=rotateDrag.o.rot;$('rotValue').textContent=rotateDrag.o.rot;return}
-  if(resizeDrag&&resizeDrag.pointerId==='mouse'){const dx=(e.clientX-resizeDrag.x)/r.width*100,dy=(e.clientY-resizeDrag.y)/r.height*100,c=resizeDrag.corner,o=resizeDrag.o;let x=resizeDrag.ox,y=resizeDrag.oy,w=resizeDrag.w,h=resizeDrag.h;if(c.includes('w')){w=Math.max(2,w-dx);x=resizeDrag.ox+resizeDrag.w-w}else w=Math.max(2,w+dx);if(c.includes('n')){h=Math.max(2,h-dy);y=resizeDrag.oy+resizeDrag.h-h}else h=Math.max(2,h+dy);if(x<0){w+=x;x=0}if(y<0){h+=y;y=0}o.x=x;o.y=y;o.w=Math.min(w,100-x);o.h=Math.min(h,100-y);resizeDrag.el.style.left=o.x+'%';resizeDrag.el.style.top=o.y+'%';resizeDrag.el.style.width=o.w+'%';resizeDrag.el.style.height=o.h+'%';$('propW').value=Math.round(o.w);$('propH').value=Math.round(o.h);$('propX').value=Math.round(o.x);$('propY').value=Math.round(o.y)}
- });
- window.addEventListener('mouseup',()=>finishInteraction({pointerId:'mouse'}));
-}
 
 // Mouse fallback for browsers/environments where Pointer Events or pointer capture are unreliable.
 board.addEventListener('mousedown',e=>{
